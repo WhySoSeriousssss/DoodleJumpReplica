@@ -1,0 +1,14 @@
+Project: Doodle Jump Unity 3D Replica
+Starting time: 2018-03-16
+
+Things to do:
+1. handle death event and display game over overlay ***
+2. different platform functionalities ** (horizontal moving platform, vanish platform)
+3. shooting functionality and animation *
+4. level generator ***
+5. score tracker **
+6. items implementation and animation * (jetpack, propeller, spring)
+7. black hole implementation *
+8. fix the collision issue ** (fixed on 2018-3-17)
+
+
