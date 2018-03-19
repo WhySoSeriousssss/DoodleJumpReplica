@@ -7,6 +7,7 @@ TagManager:
   - Platform
   - Monster
   - Doodler
+  - ScoreText
   layers:
   - Default
   - TransparentFX

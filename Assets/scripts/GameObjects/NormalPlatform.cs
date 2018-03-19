@@ -4,9 +4,4 @@ using UnityEngine;
 
 public class NormalPlatform : Platform {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-
 }

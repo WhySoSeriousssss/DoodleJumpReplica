@@ -25,7 +25,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void HandleMenuButtonOnClick()
     {
-        Time.timeScale = 1;
+        DestroyPauseMenu();
         MenuManager.GoToMenu(MenuName.Main);
     }
 

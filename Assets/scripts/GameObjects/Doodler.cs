@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Doodler : MonoBehaviour {
 
-    public float verticalForce = 40f;
+    public float normalJumpForce = 40f;
+    public float springJumpForce = 200f;
 
     public float horizontalVelocity = 10f;
 
@@ -53,11 +54,9 @@ public class Doodler : MonoBehaviour {
         {
             if (collision.relativeVelocity.y > 0)
             {
-                Jump();
+                Jump(normalJumpForce);
             }
-        }
-
-        
+        }      
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -67,7 +66,7 @@ public class Doodler : MonoBehaviour {
             if (collider.transform.position.y < transform.position.y)
             {
                 Destroy(collider.gameObject);
-                Jump();
+                Jump(normalJumpForce);
             }
             else
             {
@@ -76,9 +75,21 @@ public class Doodler : MonoBehaviour {
         }
     }
 
-    private void Jump()
+
+    private void OnBecameInvisible()
     {
-        rb.AddForce(new Vector2(0, verticalForce));
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.y < 0)
+        {
+            Destroy(gameObject);
+            MenuManager.GoToMenu(MenuName.Gameover);
+        }
+    }
+
+
+    private void Jump(float jumpForce)
+    {
+        rb.AddForce(new Vector2(0, jumpForce));
     }
 
     private void FlipSprite()

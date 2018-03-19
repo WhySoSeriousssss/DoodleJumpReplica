@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class VanishPlatform : Platform {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.CompareTag("Doodler"))
+        {
+            if (collision.relativeVelocity.y < 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 }

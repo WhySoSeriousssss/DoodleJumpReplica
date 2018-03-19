@@ -17,11 +17,11 @@ public static class MenuManager
                 break;
 
             case MenuName.Pause:
-                Object.Instantiate(Resources.Load("PauseMenu"));
+                Object.Instantiate(Resources.Load(@"prefabs\overlays\PauseMenu"));
                 break;
 
             case MenuName.Gameover:
-//                Object.Instantiate(Resources.Load("GameoverMenu"));
+                Object.Instantiate(Resources.Load(@"prefabs\overlays\GameoverCanvas"));
                 break;
         }
     }

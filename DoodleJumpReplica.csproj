@@ -282,8 +282,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ScoreTrack.cs" />
     <Compile Include="Assets\scripts\CameraFollow.cs" />
-    <Compile Include="Assets\scripts\DoodleJump.cs" />
+    <Compile Include="Assets\scripts\GameInitializer.cs" />
     <Compile Include="Assets\scripts\GameObjects\Doodler.cs" />
     <Compile Include="Assets\scripts\GameObjects\HorizontalMovingPlatform.cs" />
     <Compile Include="Assets\scripts\GameObjects\NormalPlatform.cs" />

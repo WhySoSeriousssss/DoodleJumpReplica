@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
 
-	public void HandlePlayButtonOnClick()
+    private void Awake()
+    {
+        Screen.SetResolution(300, 400, false, 60);
+    }
+
+    public void HandlePlayButtonOnClick()
     {
         MenuManager.GoToMenu(MenuName.Gameplay);
     }

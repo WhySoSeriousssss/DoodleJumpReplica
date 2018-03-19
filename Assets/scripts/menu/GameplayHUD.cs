@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameplayHUD : MonoBehaviour {
 
@@ -8,10 +7,12 @@ public class GameplayHUD : MonoBehaviour {
 
     public CanvasGroup trans;
 
+    Text scoreText;
 
     private void Start()
     {
-//        gameObject.GetComponent<CanvasGroup>();
+        //        gameObject.GetComponent<CanvasGroup>();
+        scoreText = GetComponentInChildren<Text>();
     }
 
     public void HandlePauseButtonOnClick()
@@ -34,8 +35,12 @@ public class GameplayHUD : MonoBehaviour {
     public void FlipPause()
     {
         paused = !paused;
-        
-        if (paused)
+        FlipOverlay(paused);
+    }
+
+    public void FlipOverlay(bool value)
+    {
+        if (value)
         {
             gameObject.GetComponent<Canvas>().planeDistance = 9;
             trans.alpha = 0.95f;
@@ -47,4 +52,8 @@ public class GameplayHUD : MonoBehaviour {
         }
     }
 
+    public void SetScore(int score)
+    {
+        scoreText.text = score.ToString();
+    }
 }
