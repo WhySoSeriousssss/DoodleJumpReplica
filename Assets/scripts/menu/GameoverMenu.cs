@@ -29,7 +29,9 @@ public class GameoverMenu : MonoBehaviour {
 
     private void OnDestroy()
     {
-        FindObjectOfType<GameplayHUD>().FlipOverlay(false);
+        GameplayHUD gphud = FindObjectOfType<GameplayHUD>();
+        if (gphud != null)
+            gphud.FlipOverlay(false);
     }
 
     private void SetFinalScore(int score)

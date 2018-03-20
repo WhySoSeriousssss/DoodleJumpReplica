@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - Doodler
   - ScoreText
+  - Spring
   layers:
   - Default
   - TransparentFX

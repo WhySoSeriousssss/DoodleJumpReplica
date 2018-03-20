@@ -1,4 +1,4 @@
-Project: Doodle Jump Unity 3D Replica
+Project: Doodle Jump Unity 2D Replica
 Starting time: 2018-03-16
 
 Things to do:
@@ -8,10 +8,14 @@ Things to do:
 - shooting functionality and animation *
 - level generator ***
 - score system ** (added. 2018-03-18)
-- items (jetpack, propeller, spring) implementation and animation * 
+- spring implementation ** (added on 2018-03-19)
+- jetpack and prepeller implementation and animation **
 - black hole & UFO implementation and animation *
 - more monsters implementation & animation *
 - fix the collision issue ** (fixed on 2018-3-17)
 - fix the resolution problem ** (fixed by adjust the value in registry. 2018-03-18)
 - add jump animation *
-- robust event handler **
+- robust event handler ** (added on 2018-03-19)
+
+new issues raised on 2018-03-19
+- collision issue still occours ocassionally, don't know the exact reason **

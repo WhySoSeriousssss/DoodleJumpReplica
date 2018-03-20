@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Doodler : MonoBehaviour {
 
     public float normalJumpForce = 40f;
-    public float springJumpForce = 200f;
+    public float springJumpForce = 70f;
 
     public float horizontalVelocity = 10f;
 
@@ -19,10 +17,14 @@ public class Doodler : MonoBehaviour {
     public Sprite normalSprite;
     public Sprite jumpSprite;
 
+    bool isEquippedWithItem = false;
+
     // Use this for initialization
     void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
+
+        EventManager.instance.AddListener(EventName.SpringTriggered, JumpOnSpring);
     }
 
     private void Update()
@@ -39,7 +41,7 @@ public class Doodler : MonoBehaviour {
             if ((faceRight && (movement < 0)) || (!faceRight && (movement > 0)))
             {
                 faceRight = !faceRight;
-                FlipSprite();
+                FlipFacingDirectionSprite();
             }
 
             rb.velocity = new Vector2(movement * horizontalVelocity, rb.velocity.y);
@@ -92,7 +94,21 @@ public class Doodler : MonoBehaviour {
         rb.AddForce(new Vector2(0, jumpForce));
     }
 
-    private void FlipSprite()
+    private void JumpOnSpring()
+    {
+        Jump(springJumpForce);
+    }
+
+    private void EquipJetPack()
+    {
+        if (!isEquippedWithItem)
+        {
+            isEquippedWithItem = true;
+
+        }
+    }
+
+    private void FlipFacingDirectionSprite()
     {
         if (faceRight)
         {

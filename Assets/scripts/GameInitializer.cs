@@ -8,5 +8,6 @@ public class GameInitializer : MonoBehaviour {
     {
         Time.timeScale = 1;
         ScreenUtils.Initialize();
+        EventManager.instance.Initialize();
     }
 }
