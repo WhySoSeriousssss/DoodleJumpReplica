@@ -9,7 +9,7 @@ Things to do:
 - level generator ***
 - score system ** (added. 2018-03-18)
 - spring implementation ** (added on 2018-03-19)
-- jetpack and prepeller implementation and animation **
+- jetpack and prepeller implementation and animation ** (added on 2018-03-21)
 - black hole & UFO implementation and animation *
 - more monsters implementation & animation *
 - fix the collision issue ** (fixed on 2018-3-17)
@@ -17,5 +17,9 @@ Things to do:
 - add jump animation *
 - robust event handler ** (added on 2018-03-19)
 
-new issues raised on 2018-03-19
-- collision issue still occours ocassionally, don't know the exact reason **
+New issues raised
+2018-03-19
+- collision issue still occours ocassionally, don't know the exact reason ** (Seems to be fixed. Need more time to make sure. 2018-03-21)
+
+2018-03-21
+- issue with the screen wrapping of items

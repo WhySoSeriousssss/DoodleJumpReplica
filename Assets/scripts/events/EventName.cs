@@ -2,5 +2,7 @@
 {
     SpringTriggered,
     JetpackTriggered,
-    PropellerTriggered
+    JetpackReleased,
+    PropellerTriggered,
+    PropellerReleased
 }

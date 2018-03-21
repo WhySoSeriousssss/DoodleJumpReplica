@@ -9,6 +9,13 @@ public class Item : EmptyEventInvoker {
 
     private void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        if (Camera.main != null)
+        {
+            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            if (pos.y < 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

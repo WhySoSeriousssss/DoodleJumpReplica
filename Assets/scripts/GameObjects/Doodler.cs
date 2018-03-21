@@ -19,12 +19,29 @@ public class Doodler : MonoBehaviour {
 
     bool isEquippedWithItem = false;
 
+    bool shielded = false;
+
+    DistanceJoint2D dj;
+
+
+    public bool FaceRight
+    {
+        get { return faceRight; }
+    }
+
+
+
     // Use this for initialization
     void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         sr = gameObject.GetComponent<SpriteRenderer>();
+        dj = gameObject.GetComponent<DistanceJoint2D>();
 
         EventManager.instance.AddListener(EventName.SpringTriggered, JumpOnSpring);
+        EventManager.instance.AddListener(EventName.JetpackTriggered, EquipJetPack);
+        EventManager.instance.AddListener(EventName.JetpackReleased, ReleaseItem);
+        EventManager.instance.AddListener(EventName.PropellerTriggered, EquipPropeller);
+        EventManager.instance.AddListener(EventName.PropellerReleased, ReleaseItem);
     }
 
     private void Update()
@@ -54,7 +71,7 @@ public class Doodler : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Platform"))
         {
-            if (collision.relativeVelocity.y > 0)
+            if (collision.relativeVelocity.y >= -0.0001)
             {
                 Jump(normalJumpForce);
             }
@@ -63,16 +80,19 @@ public class Doodler : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.CompareTag("Monster"))
+        if (!isEquippedWithItem)
         {
-            if (collider.transform.position.y < transform.position.y)
+            if (collider.CompareTag("Monster"))
             {
-                Destroy(collider.gameObject);
-                Jump(normalJumpForce);
-            }
-            else
-            {
-                Destroy(gameObject.GetComponent<BoxCollider2D>());
+                if (collider.transform.position.y < transform.position.y)
+                {
+                    Destroy(collider.gameObject);
+                    Jump(normalJumpForce);
+                }
+                else
+                {
+                    Destroy(gameObject.GetComponent<BoxCollider2D>());
+                }
             }
         }
     }
@@ -80,11 +100,14 @@ public class Doodler : MonoBehaviour {
 
     private void OnBecameInvisible()
     {
-        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
-        if (pos.y < 0)
+        if (Camera.main != null)
         {
-            Destroy(gameObject);
-            MenuManager.GoToMenu(MenuName.Gameover);
+            Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+            if (pos.y < 0)
+            {
+                Destroy(gameObject);
+                MenuManager.GoToMenu(MenuName.Gameover);
+            }
         }
     }
 
@@ -104,9 +127,47 @@ public class Doodler : MonoBehaviour {
         if (!isEquippedWithItem)
         {
             isEquippedWithItem = true;
-
+            Jetpack jetpack = null;
+            foreach (Jetpack jp in FindObjectsOfType<Jetpack>())
+            {
+                if (jp.Triggered)
+                    jetpack = jp;
+            }
+            if (jetpack != null)
+            {
+                dj.enabled = true;
+                dj.connectedBody = jetpack.GetComponent<Rigidbody2D>();
+            }
         }
     }
+
+
+    private void EquipPropeller()
+    {
+        if (!isEquippedWithItem)
+        {
+            isEquippedWithItem = true;
+            Propeller propeller = null;
+            foreach (Propeller prop in FindObjectsOfType<Propeller>())
+            {
+                if (prop.Triggered)
+                    propeller = prop;
+            }
+            if (propeller != null)
+            {
+                dj.enabled = true;
+                dj.connectedBody = propeller.GetComponent<Rigidbody2D>();
+            }
+        }
+    }
+
+
+    private void ReleaseItem()
+    {
+        isEquippedWithItem = false;
+        dj.enabled = false;
+    }
+
 
     private void FlipFacingDirectionSprite()
     {
