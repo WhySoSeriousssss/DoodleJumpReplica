@@ -13,7 +13,6 @@ public class Jetpack : Item {
     Timer timer;
 
     Rigidbody2D rb2d;
-    SpriteRenderer sr;
 
     Animator anim;
 
@@ -33,7 +32,6 @@ public class Jetpack : Item {
         timer.AddTimerFinishedListener(Drop);
 
         rb2d = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
 
         target = FindObjectOfType<Doodler>();
 
@@ -88,9 +86,9 @@ public class Jetpack : Item {
             transform.localScale = newScale;
 
             if (faceRight)
-                transform.position = new Vector3(target.transform.position.x + 0.35f, target.transform.position.y + 0.1f, target.transform.position.z);
+                transform.position = new Vector3(target.transform.position.x + 0.35f, target.transform.position.y + 0.2f, target.transform.position.z);
             else
-                transform.position = new Vector3(target.transform.position.x - 0.35f, target.transform.position.y + 0.1f, target.transform.position.z);
+                transform.position = new Vector3(target.transform.position.x - 0.35f, target.transform.position.y + 0.2f, target.transform.position.z);
 
             faceRight = !faceRight;
         }

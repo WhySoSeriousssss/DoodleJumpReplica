@@ -4,6 +4,8 @@ public class Spring : Item {
 
     public Sprite spring_up;
 
+    bool triggered = false;
+
 	// Use this for initialization
 	void Start () {
         events.Add(EventName.SpringTriggered, new SpringTriggeredEvent());
@@ -12,15 +14,15 @@ public class Spring : Item {
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Doodler"))
+        if (collider.gameObject.CompareTag("Doodler") && !triggered && !collider.isTrigger)
         {
-            if (collider.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0)
+            if (collider.gameObject.GetComponent<Rigidbody2D>().velocity.y < 0.001)
             {
                 events[EventName.SpringTriggered].Invoke();
                 GetComponent<SpriteRenderer>().sprite = spring_up;
                 EventManager.instance.RemoveInvoker(EventName.SpringTriggered, this);
+                triggered = true;
             }
-            
         }
     }
 

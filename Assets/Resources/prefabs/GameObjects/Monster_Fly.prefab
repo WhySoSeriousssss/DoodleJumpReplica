@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 95615776390571018}
   - component: {fileID: 212736772976682822}
   - component: {fileID: 61749366496794630}
+  - component: {fileID: 114249024655758070}
   m_Layer: 0
   m_Name: Monster_Fly
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +52,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -84,6 +85,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114249024655758070
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1910633955701020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea6f4d48117ba845ba43e2fc9998cf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212736772976682822
 SpriteRenderer:
   m_ObjectHideFlags: 1

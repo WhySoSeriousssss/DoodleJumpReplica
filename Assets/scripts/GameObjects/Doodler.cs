@@ -10,6 +10,7 @@ public class Doodler : MonoBehaviour {
     float movement;
 
     Rigidbody2D rb;
+
     SpriteRenderer sr;
     
     bool faceRight = true;
@@ -30,7 +31,6 @@ public class Doodler : MonoBehaviour {
     }
 
 
-
     // Use this for initialization
     void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -42,11 +42,8 @@ public class Doodler : MonoBehaviour {
         EventManager.instance.AddListener(EventName.JetpackReleased, ReleaseItem);
         EventManager.instance.AddListener(EventName.PropellerTriggered, EquipPropeller);
         EventManager.instance.AddListener(EventName.PropellerReleased, ReleaseItem);
-    }
-
-    private void Update()
-    {
-
+        EventManager.instance.AddListener(EventName.HitByMonster, Fall);
+        EventManager.instance.AddListener(EventName.StepOnMonster, Jump);
     }
 
     private void FixedUpdate()
@@ -73,30 +70,10 @@ public class Doodler : MonoBehaviour {
         {
             if (collision.relativeVelocity.y >= -0.0001)
             {
-                Jump(normalJumpForce);
+                Jump();
             }
         }      
     }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (!isEquippedWithItem)
-        {
-            if (collider.CompareTag("Monster"))
-            {
-                if (collider.transform.position.y < transform.position.y)
-                {
-                    Destroy(collider.gameObject);
-                    Jump(normalJumpForce);
-                }
-                else
-                {
-                    Destroy(gameObject.GetComponent<BoxCollider2D>());
-                }
-            }
-        }
-    }
-
 
     private void OnBecameInvisible()
     {
@@ -112,20 +89,25 @@ public class Doodler : MonoBehaviour {
     }
 
 
-    private void Jump(float jumpForce)
+    private void Jump()
     {
-        rb.AddForce(new Vector2(0, jumpForce));
+        rb.velocity = new Vector2(0, 0);
+        rb.AddForce(new Vector2(0, normalJumpForce));
     }
 
     private void JumpOnSpring()
     {
-        Jump(springJumpForce);
+        rb.velocity = new Vector2(0, 0);
+        rb.AddForce(new Vector2(0, springJumpForce));
     }
+
+
 
     private void EquipJetPack()
     {
         if (!isEquippedWithItem)
         {
+            rb.velocity = new Vector2(0, 0);
             isEquippedWithItem = true;
             Jetpack jetpack = null;
             foreach (Jetpack jp in FindObjectsOfType<Jetpack>())
@@ -146,6 +128,7 @@ public class Doodler : MonoBehaviour {
     {
         if (!isEquippedWithItem)
         {
+            rb.velocity = new Vector2(0, 0);
             isEquippedWithItem = true;
             Propeller propeller = null;
             foreach (Propeller prop in FindObjectsOfType<Propeller>())
@@ -164,6 +147,7 @@ public class Doodler : MonoBehaviour {
 
     private void ReleaseItem()
     {
+        dj.connectedBody = null;
         isEquippedWithItem = false;
         dj.enabled = false;
     }
@@ -179,5 +163,12 @@ public class Doodler : MonoBehaviour {
         {
             sr.flipX = true;
         }
+    }
+
+    private void Fall()
+    {
+        rb.AddForce(new Vector2(0, -1f), ForceMode2D.Impulse);
+        GetComponents<BoxCollider2D>()[0].enabled = false;
+        GetComponents<BoxCollider2D>()[1].enabled = false;
     }
 }

@@ -39,6 +39,5 @@ public static class ScreenUtils {
         screenRight = rightTopPointWorld.x;
         screenTop = rightTopPointWorld.y;
         screenBottom = leftBottomPointWorld.y;
-
     }
 }

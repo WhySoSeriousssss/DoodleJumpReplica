@@ -4,5 +4,7 @@
     JetpackTriggered,
     JetpackReleased,
     PropellerTriggered,
-    PropellerReleased
+    PropellerReleased,
+    StepOnMonster,
+    HitByMonster
 }
