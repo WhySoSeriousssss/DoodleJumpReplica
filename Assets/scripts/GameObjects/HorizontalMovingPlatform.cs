@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HorizontalMovingPlatform : Platform {
 
-    public float movingVelocity = 0.01f;
+    public float movingVelocity;
 
     float screenLeft;
     float screenRight;

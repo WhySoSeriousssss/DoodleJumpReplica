@@ -3,15 +3,14 @@ Starting time: 2018-03-16
 
 Things to do:
 - handle death event  *** (added on 2018-03-18. Not a very good implementation tho)
-- game over overlay animation *
+- game over animation *
 - different platform functionalities ** (horizontal moving platform, vanish platform) (added on 2018-03-18)
-- shooting functionality and animation *
-- level generator ***
+- shooting ability and animation *
+- level generator *** (started on 2018-03-22)
 - score system ** (added. 2018-03-18)
 - spring implementation ** (added on 2018-03-19)
 - jetpack and prepeller implementation and animation ** (added on 2018-03-21)
-- black hole & UFO implementation and animation *
-- more monsters implementation & animation *
+- more monsters/obstacles implementation & animation *
 - fix the collision issue ** (fixed on 2018-3-17)
 - fix the resolution problem ** (fixed by adjust the value in registry. 2018-03-18)
 - add jump animation *
@@ -19,7 +18,8 @@ Things to do:
 
 New issues raised
 2018-03-19
-- collision issue still occours ocassionally, don't know the exact reason ** (Seems to be fixed. Need more time to make sure. 2018-03-21)
+- collision issue still occours ocassionally, don't know the exact reason ** (Seems to be fixed. Need more time to make sure. 2018-03-21) (100% fixed and confirmed. 2018-03-22)
 
 2018-03-21
 - issue with the screen wrapping of items
+
