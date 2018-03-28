@@ -9,6 +9,8 @@ TagManager:
   - Doodler
   - ScoreText
   - Spring
+  - Propeller
+  - Jetpack
   layers:
   - Default
   - TransparentFX

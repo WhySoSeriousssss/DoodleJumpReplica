@@ -4,7 +4,7 @@ public class Doodler : MonoBehaviour {
 
     public float normalJumpForce = 40f;
     public float springJumpForce = 70f;
-
+    public float itemReleaseJumpForce = 40f;
     public float horizontalVelocity = 10f;
 
     float movement;
@@ -30,6 +30,10 @@ public class Doodler : MonoBehaviour {
         get { return faceRight; }
     }
 
+    public bool IsEquippedWithItem
+    {
+        get { return isEquippedWithItem; }
+    }
 
     // Use this for initialization
     void Start() {
@@ -38,9 +42,9 @@ public class Doodler : MonoBehaviour {
         dj = gameObject.GetComponent<DistanceJoint2D>();
 
         EventManager.instance.AddListener(EventName.SpringTriggered, JumpOnSpring);
-        EventManager.instance.AddListener(EventName.JetpackTriggered, EquipJetPack);
+ //       EventManager.instance.AddListener(EventName.JetpackTriggered, EquipJetPack);
         EventManager.instance.AddListener(EventName.JetpackReleased, ReleaseItem);
-        EventManager.instance.AddListener(EventName.PropellerTriggered, EquipPropeller);
+//        EventManager.instance.AddListener(EventName.PropellerTriggered, EquipPropeller);
         EventManager.instance.AddListener(EventName.PropellerReleased, ReleaseItem);
         EventManager.instance.AddListener(EventName.HitByMonster, Fall);
         EventManager.instance.AddListener(EventName.StepOnMonster, Jump);
@@ -75,6 +79,20 @@ public class Doodler : MonoBehaviour {
         }      
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Jetpack"))
+        {
+            EquipItem(collider.GetComponent<Jetpack>());
+        }
+
+        if (collider.CompareTag("Propeller"))
+        {
+            EquipItem(collider.GetComponent<Propeller>());
+        }
+    }
+
+
     private void OnBecameInvisible()
     {
         if (Camera.main != null)
@@ -102,7 +120,22 @@ public class Doodler : MonoBehaviour {
     }
 
 
+    private void EquipItem(Item item)
+    {
+        if (!isEquippedWithItem)
+        {
+            rb.velocity = new Vector2(0, 0);
+            isEquippedWithItem = true;
 
+            if (item != null)
+            {
+                dj.enabled = true;
+                dj.connectedBody = item.GetComponent<Rigidbody2D>();
+            }
+        }
+    }
+
+    /*
     private void EquipJetPack()
     {
         if (!isEquippedWithItem)
@@ -143,13 +176,16 @@ public class Doodler : MonoBehaviour {
             }
         }
     }
-
+*/
 
     private void ReleaseItem()
     {
         dj.connectedBody = null;
-        isEquippedWithItem = false;
         dj.enabled = false;
+        isEquippedWithItem = false;
+//        rb.velocity = new Vector2(0, 0);
+//        rb.AddForce(new Vector2(0, itemReleaseJumpForce));
+
     }
 
 

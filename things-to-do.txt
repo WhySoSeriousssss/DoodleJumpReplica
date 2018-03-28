@@ -23,3 +23,6 @@ New issues raised
 2018-03-21
 - issue with the screen wrapping of items
 
+2018-03-24
+- item properties adjustment
+

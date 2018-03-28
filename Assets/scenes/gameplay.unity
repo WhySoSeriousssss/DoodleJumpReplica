@@ -177,6 +177,16 @@ Prefab:
       propertyPath: m_Size.x
       value: 0.5313748
       objectReference: {fileID: 0}
+    - target: {fileID: 232572747344601716, guid: 456ed2944dcabcc409dd9174001d37f6,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114754262765353004, guid: 456ed2944dcabcc409dd9174001d37f6,
+        type: 2}
+      propertyPath: springJumpForce
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 456ed2944dcabcc409dd9174001d37f6, type: 2}
   m_IsPrefabParent: 0
@@ -217,6 +227,29 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4096067068066794, guid: ca97cca0cd3be6e4daa65c2c9c2627e9, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114378967205693050, guid: ca97cca0cd3be6e4daa65c2c9c2627e9,
+        type: 2}
+      propertyPath: itemSpringPrefab
+      value: 
+      objectReference: {fileID: 1870628917042014, guid: fc21e0b63ef0ceb42a415e766dd1c12f,
+        type: 2}
+    - target: {fileID: 114378967205693050, guid: ca97cca0cd3be6e4daa65c2c9c2627e9,
+        type: 2}
+      propertyPath: itemPropellerPrefab
+      value: 
+      objectReference: {fileID: 1449164698918122, guid: 403f441eb7ac5e748ba3e3f68b2b534e,
+        type: 2}
+    - target: {fileID: 114378967205693050, guid: ca97cca0cd3be6e4daa65c2c9c2627e9,
+        type: 2}
+      propertyPath: itemJetpackPrefab
+      value: 
+      objectReference: {fileID: 1273051686393126, guid: 77174dae1d85b0349aec1ec947fb0b5a,
+        type: 2}
+    - target: {fileID: 114378967205693050, guid: ca97cca0cd3be6e4daa65c2c9c2627e9,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

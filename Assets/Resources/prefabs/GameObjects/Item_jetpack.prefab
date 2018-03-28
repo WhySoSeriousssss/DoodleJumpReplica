@@ -21,13 +21,14 @@ GameObject:
   - component: {fileID: 4586208068886186}
   - component: {fileID: 212216390873628818}
   - component: {fileID: 95810342182914106}
-  - component: {fileID: 114013582520191796}
   - component: {fileID: 61628250637014544}
   - component: {fileID: 50916900325387238}
+  - component: {fileID: 114013582520191796}
   - component: {fileID: 114343447053710842}
+  - component: {fileID: 255071900821534966}
   m_Layer: 0
   m_Name: Item_jetpack
-  m_TagString: Untagged
+  m_TagString: Jetpack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,7 +40,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1273051686393126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.183, y: -4.05, z: 0}
+  m_LocalPosition: {x: -0.042951882, y: -3.8948987, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +57,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 0.01
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -80,7 +81,7 @@ BoxCollider2D:
   m_Offset: {x: -0.14230774, y: -0.35648805}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.79647446, y: 0.9817406}
+    pivot: {x: 0.8, y: 0.98}
     oldSize: {x: 0.48, y: 0.74}
     newSize: {x: 0.48, y: 0.74}
     adaptiveTilingThreshold: 0.5
@@ -118,6 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5988a5bcaecc41e4695d037f503847c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceTime: 0.5
+  duration: 2.5
+  runningVelocity: 20
 --- !u!114 &114343447053710842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,3 +177,20 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!255 &255071900821534966
+FixedJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273051686393126}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0

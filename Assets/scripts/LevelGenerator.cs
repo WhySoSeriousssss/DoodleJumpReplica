@@ -23,6 +23,11 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject horizontalMovingPlatformPrefab;
     public GameObject vanishPlatformPrefab;
 
+    // item prefabs
+    public Dictionary<GameObject, float> itemProbs = new Dictionary<GameObject, float>();
+    public GameObject itemSpringPrefab;
+    public GameObject itemJetpackPrefab;
+    public GameObject itemPropellerPrefab;
 
     // Use this for initialization
     void Start () {
@@ -48,7 +53,9 @@ public class LevelGenerator : MonoBehaviour {
         platformsProbs.Add(horizontalMovingPlatformPrefab, 0.05f);
         platformsProbs.Add(vanishPlatformPrefab, 0);
 
-
+        itemProbs.Add(itemSpringPrefab, 0.05f);
+        itemProbs.Add(itemJetpackPrefab, 0.01f);
+        itemProbs.Add(itemPropellerPrefab, 0.015f);
 
 
         // generate the initial level
@@ -87,25 +94,47 @@ public class LevelGenerator : MonoBehaviour {
 
     private void GeneratePlatform(Vector3 pos)
     {
-        float p = Random.Range(0f, 1f);
+        GameObject platform;
+        float platRandom = Random.Range(0f, 1f);
+        Platform platformScript;
+
         float accuProb = 0;
         float probNormal = platformsProbs[normalPlatformPrefab];
         float probHori = platformsProbs[horizontalMovingPlatformPrefab];
         float probVani = platformsProbs[vanishPlatformPrefab];
 
         accuProb = probNormal;
-        if (p <= probNormal)
+        if (platRandom <= probNormal)
         {
-            Instantiate(normalPlatformPrefab, pos, Quaternion.identity);
+            platform = Instantiate(normalPlatformPrefab, pos, Quaternion.identity);
+            platformScript = platform.GetComponent<NormalPlatform>();
         }
-        else if (p <= (accuProb += probHori))
-        {  
-            Instantiate(horizontalMovingPlatformPrefab, pos, Quaternion.identity);
+        else if (platRandom <= (accuProb += probHori))
+        {
+            platform = Instantiate(horizontalMovingPlatformPrefab, pos, Quaternion.identity);
+            platformScript = platform.GetComponent<HorizontalMovingPlatform>();
         }
         else
         {
-            Debug.Log(p + "   " + accuProb);
-            Instantiate(vanishPlatformPrefab, pos, Quaternion.identity);
+            platform = Instantiate(vanishPlatformPrefab, pos, Quaternion.identity);
+            return; // vanish platforms do not attach any items
+        }
+
+        // add items on the platform
+        float jetRandom = Random.Range(0f, 1f);
+        float propRandom = Random.Range(0f, 1f);
+        float sprRandom = Random.Range(0f, 1f);
+        if (jetRandom < itemProbs[itemJetpackPrefab])
+        {
+            platformScript.AttachItem(itemJetpackPrefab);
+        }
+        else if (propRandom < itemProbs[itemPropellerPrefab])
+        {
+            platformScript.AttachItem(itemPropellerPrefab);
+        }
+        else if (sprRandom < itemProbs[itemSpringPrefab])
+        {
+            platformScript.AttachItem(itemSpringPrefab);
         }
     }
 

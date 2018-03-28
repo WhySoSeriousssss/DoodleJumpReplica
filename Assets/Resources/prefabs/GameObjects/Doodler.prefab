@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalJumpForce: 46
   springJumpForce: 110
+  itemReleaseJumpForce: 20
   horizontalVelocity: 10
   normalSprite: {fileID: 0}
   jumpSprite: {fileID: 0}
