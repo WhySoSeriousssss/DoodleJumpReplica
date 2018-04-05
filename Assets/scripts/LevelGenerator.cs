@@ -10,6 +10,8 @@ public class LevelGenerator : MonoBehaviour {
     float minYInterval, maxYInterval;
     float lastPlatformY;
 
+    float minYProb, maxYProb;
+    float a, b, c;
     int currentBlock;
     int numPlatformsPerBlock;
 
@@ -36,13 +38,16 @@ public class LevelGenerator : MonoBehaviour {
         // hardcode for now
         float PlatformWidth = 1.14f;
         float PlatformHeight = 0.3f;
-        float jumpHeight = 1.5f;
+        float jumpHeight = 3.1f;
 
         minX = ScreenUtils.ScreenLeft + PlatformWidth / 2;
         maxX = ScreenUtils.ScreenRight - PlatformWidth / 2;
         minYInterval = PlatformHeight;
         maxYInterval = jumpHeight - 0.1f;
         lastPlatformY = ScreenUtils.ScreenBottom + minYInterval / 2;
+
+        maxYProb = 0.85f * 2 / (maxYInterval - minYInterval);
+        minYProb = 0.15f * 2 / (maxYInterval - minYInterval);
 
         currentBlock = 0;
         numPlatformsPerBlock = 25;
@@ -65,11 +70,12 @@ public class LevelGenerator : MonoBehaviour {
         // make sure the first platform is right below the doodler
         spawnPos = new Vector3(0, lastPlatformY);
         Instantiate(normalPlatformPrefab, spawnPos, Quaternion.identity);
+
+        SetHeightDistribution();
         while (spawnPos.y < (maxY - minYInterval / 2))
         {
             spawnPos.x = Random.Range(minX, maxX);
-            spawnPos.y += Random.Range(minYInterval, maxYInterval);
-
+            spawnPos.y += GenerateHeight();
             GeneratePlatform(spawnPos);
         }
     }
@@ -78,7 +84,9 @@ public class LevelGenerator : MonoBehaviour {
 	void Update () {
 		if (Camera.main.transform.position.y > currentBlock * screenHeight)
         {
+            int numBlocks = 0;
             currentBlock++;
+            SetHeightDistribution();
             UpdatePlatformProbs();
             float minY = (currentBlock - 0.5f) * screenHeight;
             float maxY = (currentBlock + 0.5f) * screenHeight;
@@ -86,9 +94,12 @@ public class LevelGenerator : MonoBehaviour {
             while (spawnPos.y < (maxY - minYInterval / 2))
             {
                 spawnPos.x = Random.Range(minX, maxX);
-                spawnPos.y += Random.Range(minYInterval, maxYInterval);
+                float h = GenerateHeight();
+                spawnPos.y += h;
                 GeneratePlatform(spawnPos);
+                numBlocks++;
             }
+            Debug.Log("Block# for block " + currentBlock + ": " + numBlocks);
         }
 	}
 
@@ -149,5 +160,30 @@ public class LevelGenerator : MonoBehaviour {
 
 
 //        Debug.Log(platformsProbs[normalPlatformPrefab] + " " + platformsProbs[horizontalMovingPlatformPrefab] + " " + platformsProbs[vanishPlatformPrefab]);
+    }
+
+
+    private float GenerateHeight()
+    {
+        float p = Random.Range(0f, 1f);
+        float h1, h2;
+        h1 = -Mathf.Sqrt(2 * (p - c) / a + (b * b) / (a * a)) - b / a;
+        h2 = Mathf.Sqrt(2 * (p - c) / a + (b * b) / (a * a)) - b / a;
+        if (h1 >= minYInterval && h1 <= maxYInterval)
+            return h1;
+        else
+            return h2;
+    }
+
+    private void SetHeightDistribution()
+    {
+        float PminYOverBlock = (maxYProb - minYProb) * 5f / (currentBlock + 1.1f) + minYProb;
+        float PmaxYOverBlock = (minYProb - maxYProb) * 5f / (currentBlock + 1.1f) + maxYProb;
+
+        a = (PmaxYOverBlock - PminYOverBlock) / (maxYInterval - minYInterval);
+        b = (PminYOverBlock - (PmaxYOverBlock - PminYOverBlock) / (maxYInterval - minYInterval) * minYInterval);
+        c = (-a * minYInterval * minYInterval) / 2 - b * minYInterval;
+
+        Debug.Log(PminYOverBlock + "  " + PmaxYOverBlock);
     }
 }
